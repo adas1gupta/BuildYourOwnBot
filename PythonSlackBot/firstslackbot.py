@@ -11,6 +11,7 @@ client = WebClient(token=slack_bot_token)
 class SlackBot:
     def __init__(self):
         self.bot_id = self.get_bot_id()
+        self.last_checked = time.time()
         
     def get_bot_id(self):
         """Get the bot's user ID"""
