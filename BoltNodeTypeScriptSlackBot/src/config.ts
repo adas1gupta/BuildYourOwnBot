@@ -12,22 +12,22 @@ export const config = {
       
       // Bot display settings
       bot: {
-        name: 'ConversaDocs Bot',
+        name: 'First Slack Bot',
         icon: ':mag:', // Emoji for the bot
       },
       
       // Command configuration
       commands: {
         search: '/search',
-        help: '/conversadocs-help',
+        help: '/whatever-help',
         feedback: '/feedback',
       },
     },
     
-    // ConversaDocs API configuration
+    // API configuration
     conversaDocs: {
       // API URL - should be overridden by environment variable
-      apiUrl: process.env.CONVERSADOCS_API_URL || 'https://api.conversadocs.com/v1',
+      apiUrl: process.env.API_URL || 'https://api.whatever.com/v1',
       
       // Maximum number of results to return from the API
       maxResults: 10,
