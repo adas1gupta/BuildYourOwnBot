@@ -1,27 +1,27 @@
 import axios from 'axios';
 import { logger } from '../utils/logger';
 import { config } from '../config';
-import { ConversaDocsRequest, ConversaDocsResponse } from '../types/conversadocs';
+import { Request, Response } from '../types/conversadocs';
 
 /**
- * Queries the ConversaDocs API with a user message
+ * Queries the API with a user message
  * 
  * @param message - The user's message text
  * @param context - Additional context like userId and channelId
- * @returns The ConversaDocs API response
+ * @returns The API response
  */
-export async function queryConversaDocs(
+export async function queryAPI(
   message: string, 
   context: { userId: string; channelId: string }
-): Promise<ConversaDocsResponse> {
+): Promise<Response> {
   try {
-    logger.info(`Querying ConversaDocs API for message: ${message.substring(0, 50)}...`);
+    logger.info(`Querying API for message: ${message.substring(0, 50)}...`);
     
-    const request: ConversaDocsRequest = {
+    const request: Request = {
       query: message,
       userId: context.userId,
-      maxResults: config.conversaDocs.maxResults,
-      // Add any other parameters required by the ConversaDocs API
+      maxResults: config.api.maxResults,
+      // Add any other parameters required by the API
     };
 
     const response = await axios.post(
@@ -29,27 +29,26 @@ export async function queryConversaDocs(
       request,
       {
         headers: {
-          'Authorization': `Bearer ${process.env.CONVERSADOCS_API_KEY}`,
+          'Authorization': `Bearer ${process.env.API_KEY}`,
           'Content-Type': 'application/json',
         }
       }
     );
 
-    logger.info('ConversaDocs API response received');
+    logger.info('API response received');
     return response.data;
   } catch (error) {
-    logger.error('Error querying ConversaDocs API:', error);
+    logger.error('Error querying API:', error);
     
     if (axios.isAxiosError(error) && error.response) {
-      logger.error(`ConversaDocs API error: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
+      logger.error(`API error: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
     }
     
-    throw new Error('Failed to get response from ConversaDocs');
+    throw new Error('Failed to get response from API');
   }
 }
 
 /**
- * Gets document information from ConversaDocs
  * 
  * @param documentId - The document ID to retrieve
  * @returns The document information
