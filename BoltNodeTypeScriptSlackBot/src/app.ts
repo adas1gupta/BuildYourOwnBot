@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { handleEvents } from './handlers/events';
 import { handleCommands } from './handlers/commands';
 import { handleActions } from './handlers/actions';
-import { queryConversaDocs } from './api/conversadocs';
+import { queryConversaDocs } from './api/apiIntegration';
 import { logger } from './utils/logger';
 import { formatMessage } from './utils/formatter';
 import { config } from './config';
